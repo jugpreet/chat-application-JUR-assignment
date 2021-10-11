@@ -24,8 +24,7 @@ export const setUserId = (data) => ({
    }
 
    export const setLastMessages = (data) => dispatch => {
-     console.log(data,67)
-    dispatch({
+    dispatch({    
         type: MESSAGES,
         payload: data,
     })

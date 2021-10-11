@@ -31,7 +31,7 @@ const UserList = () => {
         dispatch(setUserId({ id: id, name: name }))
         console.log(id)
     }
-    console.log(users, 9)
+    
     const redirectOnCLick = () => {
         history.push(routes.active.path)
     }

@@ -7,17 +7,19 @@ import { UserOutlined } from '@ant-design/icons';
 import '../../comman.css'
 import './ChatRoom.css'
 const ChatRoom = () => {
+    const messages = JSON.parse(localStorage.getItem('messages'));
     const [message, setMessageText] = useState('')
-    const [messageList, setMessageList] = useState([])
+    const [messageList, setMessageList] = useState(messages||[])
     const [sent, setSent] = useState(false)
     //const selectedUsers = useSelector(state => state.data?.SelectedUsers)
     const userInfo = useSelector((state) => state?.data)
     const title = useSelector((state) => state?.data?.Title)
     const convId = useSelector((state) => state?.data?.Messages)
-    // const selectedUsersIds = []
-    // selectedUsers?.forEach(element => {
-    //     selectedUsersIds.push(element?.id)
-    // })
+    localStorage.setItem('messages', JSON.stringify(messageList))
+    
+    useEffect(()=>{
+        return()=>{localStorage.clear()}
+    },[])
     const setConv = async () => {
         console.log(convId, 78)
         const res = await getALLMessages(convId)

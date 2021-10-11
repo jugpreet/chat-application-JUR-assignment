@@ -13,6 +13,7 @@ const SelectUsersForConv = () => {
     const users = useSelector((state) => state?.data?.Users)
     const userInfo = useSelector((state) => state?.data)
     const getRemainingUsersList = () => {
+        console.log(users,16);
         users.forEach((data, index) => {
             if (data?.id === userInfo?.userID) {
                 users.splice(index, 1)
