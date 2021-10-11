@@ -8,6 +8,7 @@ import { routes } from "../../Config/routes";
 import { setLastMessages ,setConvTitle} from "../../Services/action";
 import RenderList from "../../Components/RenderList";
 import SelectUsersForConv from '../SelectUsersForConv/SelectUsersForConv';
+import './ActiveUser.css'
 //const ActionCable = require('actioncable')
 const ActiveUser = () => {
     const history = useHistory()
@@ -70,11 +71,11 @@ const ActiveUser = () => {
         history.push(routes.startNewConv.path)
     }
 
-    return <div><h1>Welcome {userInfo?.userName}</h1>
+    return <div>
         {
-            activeconversations.length ? < > <p>Your Conversations</p>
+            activeconversations.length ? < > <h1>Your Conversations</h1>
                 <RenderList dataArr={activeconversations} handleClick={getMessagesOfConversation} />
-                <Button onClick={()=>handleSeeMessages()} >Create New Conversation</Button>
+                <Button className='createConv' onClick={()=>handleSeeMessages()} >Create New Conversation</Button>
             </> :
                 <SelectUsersForConv />
         }

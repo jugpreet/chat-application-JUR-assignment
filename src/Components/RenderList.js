@@ -3,13 +3,19 @@ import { UserOutlined } from '@ant-design/icons';
 import './RenderList.css'
 const RenderList = (props) => {
     const { dataArr, handleClick } = props
-    return <div>
+    const handleList = (data) => {
+        handleClick && handleClick(data)
+    }
+    
+    return <div className="container">
+    <ul className='main'>
         {dataArr?.map((data) => {
-            return <div key={data?.id} onClick={() => handleClick && handleClick(data)}  className="renderList">
-                <Avatar size={64} icon={<UserOutlined />} />
+            return <li key={data?.id} onClick={() => handleList(data)} className="renderList">
+                <Avatar className='avatar' size={50} icon={<UserOutlined />} />
                 <p>{data?.name || data?.title || data?.content}</p>
-            </div>
+            </li>
         })}
+    </ul>
     </div>
 }
 export default RenderList

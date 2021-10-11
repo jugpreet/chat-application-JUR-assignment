@@ -5,6 +5,7 @@ import { routes } from "../../Config/routes";
 import { useHistory } from 'react-router-dom';
 import { setConvTitle } from "../../Services/action";
 import RenderList from "../../Components/RenderList";
+import './StartConversation.css'
 const StartConversation = () => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -26,9 +27,9 @@ const StartConversation = () => {
             <RenderList dataArr={selectedUsers} />
         </div>
 
-        <Input placeholder="Basic usage" onChange={(e) => handleTitleChange(e)} />
+        <Input placeholder="Basic usage" className='inputfieldstartconv' onChange={(e) => handleTitleChange(e)} />
         {
-            title && <Button onClick={() => startConversationCall()}>Start Conversation</Button>
+            title && <Button className='startConButton' onClick={() => startConversationCall()}>Start Conversation</Button>
         }
     </div>
 }

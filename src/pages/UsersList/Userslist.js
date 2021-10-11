@@ -1,6 +1,7 @@
 import { getUsers } from "../../api/apis"
 import { useEffect, useState } from 'react'
 import './Userlist.css'
+import '../../comman.css'
 import { Button } from 'antd';
 import { useDispatch } from 'react-redux'
 import { setUserId, setUsers } from "../../Services/action";
@@ -37,7 +38,7 @@ const UserList = () => {
     return <div><h1>Let us know who you are</h1>
         <RenderList dataArr={users} handleClick={handleUsers} />
 
-        {active && <Button onClick={redirectOnCLick}>Continue</Button>}
+        {active && <Button className='continuebutton' onClick={redirectOnCLick}>Continue</Button>}
 
     </div>
 }

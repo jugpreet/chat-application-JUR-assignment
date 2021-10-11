@@ -1,8 +1,11 @@
-import {  Button, Input } from 'antd';
+import { Button, Input } from 'antd';
 import { useEffect, useState } from 'react'
-import {  useSelector } from 'react-redux';
-import { getALLMessages,  setMessages } from "../../api/apis"
-import RenderList from "../../Components/RenderList";
+import { useSelector } from 'react-redux';
+import { getALLMessages, setMessages } from "../../api/apis"
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import '../../comman.css'
+import './ChatRoom.css'
 const ChatRoom = () => {
     const [message, setMessageText] = useState('')
     const [messageList, setMessageList] = useState([])
@@ -10,15 +13,15 @@ const ChatRoom = () => {
     //const selectedUsers = useSelector(state => state.data?.SelectedUsers)
     const userInfo = useSelector((state) => state?.data)
     const title = useSelector((state) => state?.data?.Title)
-    const convId=useSelector((state) => state?.data?.Messages)
+    const convId = useSelector((state) => state?.data?.Messages)
     // const selectedUsersIds = []
     // selectedUsers?.forEach(element => {
     //     selectedUsersIds.push(element?.id)
     // })
     const setConv = async () => {
-        console.log(convId,78)
+        console.log(convId, 78)
         const res = await getALLMessages(convId)
-        console.log(res,21)
+        console.log(res, 21)
         setMessageList(res);
     }
 
@@ -31,23 +34,35 @@ const ChatRoom = () => {
         setMessageText(e.target.value)
     }
     const handleSendMessage = async () => {
-        setMessageList((prev) => [...prev, message])
-        setSent(true)
+        
+        if(message.length){
+            setSent(true)
         await setMessages(userInfo?.userID, message).then((res) => {
             setSent(false)
-            setMessageText('')
-        })
-    }
-    return <div>
-        <h1>{title}</h1>
-        < div>
-            {!!messageList?.length && <div>
-                <RenderList dataArr={messageList}/>
-                {sent ? <p>Sending...</p> : <p>Sent</p>}</div>}
-        </div>
+            setMessageList((prev) => [...prev, res])
+        })}
 
-        <Input placeholder="Send Something..." onChange={(e) => handleSetMessage(e)} value={message} />
-        <Button onClick={() => handleSendMessage()}>Send</Button>
+        setMessageText('')
+    }
+    console.log(messageList, 45);
+    return <div>
+        <h1 className='title'>{title}</h1>
+        < ul className='messages'>
+            {!!messageList?.length && <>
+                {messageList.map((data) => {
+                    return <li key={data?.id} className='chatroom'>
+                        <Avatar className='avatar' size={64} icon={<UserOutlined />} />
+                        <p>{data?.content}</p>
+                    </li>
+                })}
+            </>}
+        </ul>
+        {sent ? <p className='sending'>Sending...</p> : <p className='sending'>Sent</p>}
+        <div className='footerchatroom'>
+
+            <Input className='inputfield' placeholder="Send Something..." onChange={(e) => handleSetMessage(e)} value={message} />
+            <Button className='inputfieldbutton' onClick={() => handleSendMessage()}>Send</Button>
+        </div>
     </div>
 }
 export default ChatRoom
