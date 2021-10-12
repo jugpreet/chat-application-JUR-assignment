@@ -18,19 +18,14 @@ const ChatRoom = () => {
     localStorage.setItem('messages', JSON.stringify(messageList))
     
     useEffect(()=>{
+        setConv()
         return()=>{localStorage.clear()}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     const setConv = async () => {
-        console.log(convId, 78)
         const res = await getALLMessages(convId)
-        console.log(res, 21)
         setMessageList(res);
     }
-
-    useEffect(() => {
-        setConv()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     const handleSetMessage = (e) => {
         setMessageText(e.target.value)
@@ -46,7 +41,7 @@ const ChatRoom = () => {
 
         setMessageText('')
     }
-    console.log(messageList, 45);
+    
     return <div>
         <h1 className='title'>{title}</h1>
         < ul className='messages'>

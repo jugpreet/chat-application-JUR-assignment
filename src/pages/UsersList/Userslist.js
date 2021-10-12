@@ -29,7 +29,7 @@ const UserList = () => {
         setActive(true)
 
         dispatch(setUserId({ id: id, name: name }))
-        console.log(id)
+    
     }
     
     const redirectOnCLick = () => {

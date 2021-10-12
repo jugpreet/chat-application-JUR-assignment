@@ -1,41 +1,32 @@
 
 import './App.css';
-import UserList from "./pages/UsersList/Userslist"
 import {
-  BrowserRouter as Router,
+  BrowserRouter ,
   Switch,
-  Route,
+  Route
 } from "react-router-dom";
-import { routes } from "./Config/routes";
-import ActiveUser from './pages/ActiveUser/ActiveUser';
-import StartConversation from './pages/StartConversation/StartConversation';
-import ChatRoom from './pages/chatRoom/ChatRoom';
-import SelectUsersForConv from './pages/SelectUsersForConv/SelectUsersForConv';
+import { renderRoutes } from "./Config/routes";
+import { Suspense } from "react";
 function App() {
-  //const API_WS_ROOT = process.env.REACT_APP_WS_URL
+  
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path={ routes.active.path } >
-            <ActiveUser />
-          </Route>
-          <Route path={routes.startConversation.path}>
-            <StartConversation />
-          </Route>
-          <Route path={routes.chatRoom.path}>
-            <ChatRoom />
-          </Route>
-          <Route path={routes.startNewConv.path}>
-            <SelectUsersForConv />
-          </Route>
-          <Route path="/">
-            <UserList />
-          </Route>
-        </Switch>
-      </Router>
-
-    </div>
+    <Suspense fallback={"...loading"}>
+    <BrowserRouter>
+          <Switch>
+            {renderRoutes.map(([key, route]) =>
+                <Route
+                  key={key}
+                  exact
+                  render={() => <route.component />}
+                  path={route.path}
+                />
+              )}
+          </Switch>
+        </BrowserRouter>
+        </Suspense>
+   </div>
+  
   );
 }
 

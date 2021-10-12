@@ -48,7 +48,6 @@ const ActiveUser = () => {
     const getActiveConversations = async () => {
         try {
             const res = await getConversations(userInfo?.userID)
-            console.log(res)
             setActiveConversations([res])
         }
         catch (e) {
